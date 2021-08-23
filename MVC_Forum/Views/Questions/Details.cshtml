@@ -1,0 +1,70 @@
+﻿@model TP2_Mathieu_Blackburn_Rogers.Models.Question
+@using System.Security.Claims;
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Question</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            Utilisateur
+        </dt>
+        <dd class = "col-sm-10">
+            @ViewData["Username"]
+        </dd>
+        <dt class = "col-sm-2">
+            Titre
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.QueTitre)
+        </dd>
+        <dt class = "col-sm-2">
+            Question
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.Raw(Model.QueTexte)
+        </dd>
+        <dt class = "col-sm-2">
+            Date
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.QueDate)
+        </dd>
+        <dt class = "col-sm-2">
+            Vues
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.QueViews)
+        </dd>
+        <dt class = "col-sm-2">
+            État
+        </dt>
+        <dd class="col-sm-10">
+            @if (Model.QueActive == true)
+            {
+                <p>Active</p>
+            }
+            else
+            {
+                <p>Inactive</p>
+            }
+        </dd>
+        <dt class = "col-sm-2">
+            Catégorie
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FkCat.CatNom)
+        </dd>
+    </dl>
+</div>
+<div>
+    @if (User.FindFirstValue(ClaimTypes.NameIdentifier) == Model.FkUser)
+    {
+        <a asp-action="Edit" asp-route-id="@Model.QueId">Edit |</a>
+    }
+    <a asp-action="Index" asp-route-id="@Model.FkCatId">Back to List</a>
+</div>

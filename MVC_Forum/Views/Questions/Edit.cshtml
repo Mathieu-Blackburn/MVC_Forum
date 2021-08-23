@@ -1,0 +1,45 @@
+﻿@model TP2_Mathieu_Blackburn_Rogers.Models.Question
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Question</h4>
+<hr />
+<div class="row">
+    <div class="col-md-8">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="QueId" />
+            <input type="hidden" asp-for="FkCatId" />
+            <input type="hidden" asp-for="FkUser" />
+            <input type="hidden" asp-for="QueDate" />
+            <input type="hidden" asp-for="QueViews" />
+            <input type="hidden" asp-for="QueActive" />
+            <div class="form-group">
+                <label asp-for="QueTitre" class="control-label">Titre</label>
+                <input asp-for="QueTitre" class="form-control" />
+                <span asp-validation-for="QueTitre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="QueTexte" class="control-label">Question</label>
+                <textarea asp-for="QueTexte" class="form-control"></textarea>
+                <span asp-validation-for="QueTexte" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" asp-route-id="@Model.FkCatId">Back to List</a>
+    @*<a href='javascript:history.go(-1)'>Back to Questions</a>*@
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

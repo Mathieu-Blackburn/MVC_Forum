@@ -1,0 +1,44 @@
+﻿@model TP2_Mathieu_Blackburn_Rogers.Models.Question
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Question</h4>
+<hr />
+<div class="row">
+    <div class="col-md-8">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="FkCatId" value="@ViewData["FkCatId"]" />
+            <input type="hidden" asp-for="FkUser" value="@ViewData["UserId"]" />
+            <input type="hidden" asp-for="QueDate" value="@DateTime.Now" />
+            <input type="hidden" asp-for="QueViews" value="0" />
+            <input type="hidden" asp-for="QueActive" value="True" />
+
+            <div class="form-group">
+                <label asp-for="QueTitre" class="control-label">Titre</label>
+                <input asp-for="QueTitre" class="form-control" />
+                <span asp-validation-for="QueTitre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="QueTexte" class="control-label">Texte</label>
+                <textarea asp-for="QueTexte" class="form-control" ></textarea>
+                <span asp-validation-for="QueTexte" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" asp-route-id="@ViewData["FkCatId"]">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,58 @@
+﻿@model TP2_Mathieu_Blackburn_Rogers.Models.Reponse
+@using System.Security.Claims;
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Reponse</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Utilisateur
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FkUser)
+        </dd>
+        <dt class="col-sm-2">
+            Réponse
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.RepTexte)
+        </dd>
+        <dt class="col-sm-2">
+            Date
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.RepDate)
+        </dd>
+        <dt class="col-sm-2">
+            État
+        </dt>
+        <dd class="col-sm-10">
+            @if (Model.RepActive == true)
+            {
+                <p>Active</p>
+            }
+            else
+            {
+                <p>Inactive</p>
+            }
+        </dd>
+        <dt class="col-sm-2">
+            Question
+        </dt>
+        <dd class="col-sm-10">
+            @Html.Raw(Model.FkQue.QueTexte)
+        </dd>
+    </dl>
+</div>
+<div>
+    @if (User.FindFirstValue(ClaimTypes.NameIdentifier) == @Model.FkUser)
+    {
+        <a asp-action="Edit" asp-route-id="@Model.RepId">Edit |</a>
+    }
+    <a asp-action="Index" asp-route-id="@Model.FkQueId">Back to List</a>
+</div>

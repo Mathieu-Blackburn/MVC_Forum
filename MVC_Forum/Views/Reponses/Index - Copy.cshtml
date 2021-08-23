@@ -1,0 +1,59 @@
+﻿@model IEnumerable<TP2_Mathieu_Blackburn_Rogers.Models.Reponse>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FkUser)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RepTexte)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RepDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RepActive)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FkQue)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FkUser)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RepTexte)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RepDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RepActive)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FkQue.QueTexte)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.RepId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.RepId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.RepId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

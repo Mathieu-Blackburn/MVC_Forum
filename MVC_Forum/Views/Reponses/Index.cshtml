@@ -1,0 +1,103 @@
+﻿@model PaginatedList<TP2_Mathieu_Blackburn_Rogers.Controllers.RepDisp>
+@using System.Security.Claims;
+@{
+    ViewData["Title"] = "Index";
+    var Dict = (Dictionary<string, string>)ViewData["Dict"];
+}
+
+<h1>@Dict["QuestionTitre"]</h1>
+
+<h3>@Html.Raw(Dict["QuestionTexte"])</h3>
+
+@if (User.Identity.IsAuthenticated)
+{
+    <p>
+        <a asp-action="Create" asp-route-id="@Dict["QuestionID"]">Create New</a>
+    </p>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Utilisateur
+            </th>
+            <th>
+                Texte
+            </th>
+            <th style="max-width: 5em;">
+                Date
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            if (item.Active == true)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Username)
+                    </td>
+                    <td>
+                        @Html.Raw(item.Texte)
+                    </td>
+                    <td>
+                        <p>@Html.DisplayFor(modelItem => item.Date)</p>
+                    </td>
+                    <td>
+                        @if (User.FindFirstValue(ClaimTypes.NameIdentifier) == item.User)
+                        {
+                            <a asp-action="Edit" asp-route-id="@item.ID">Edit |</a>
+                            <a asp-action="Delete" asp-route-id="@item.ID">Delete |</a>
+                        }
+                        <a asp-action="Details" asp-route-id="@item.ID">Details |</a>
+
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-primary @prevDisabled">
+    First Page
+</a>
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex - 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-primary @prevDisabled">
+    Previous
+</a>
+
+<span>Current page: @Model.PageIndex / @Model.TotalPages</span>
+
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex + 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-primary @nextDisabled">
+    Next
+</a>
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.TotalPages)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-primary @nextDisabled">
+    Last Page
+</a>
+<div style="height:25px;"></div>
+<div>
+    <a asp-action="Index" asp-controller="Questions" asp-route-id="@Dict["CategoryID"]">Back to List</a>
+    @*<a href='javascript:history.go(-1)'>Back to Questions</a>*@
+</div>

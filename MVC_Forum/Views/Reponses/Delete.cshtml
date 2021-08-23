@@ -1,0 +1,58 @@
+﻿@model TP2_Mathieu_Blackburn_Rogers.Models.Reponse
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Reponse</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Utilisateur
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FkUser)
+        </dd>
+        <dt class="col-sm-2">
+            Réponse
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.RepTexte)
+        </dd>
+        <dt class="col-sm-2">
+            Date
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.RepDate)
+        </dd>
+        <dt class="col-sm-2">
+            État
+        </dt>
+        <dd class="col-sm-10">
+            @if (Model.RepActive == true)
+            {
+                <p>Active</p>
+            }
+            else
+            {
+                <p>Inactive</p>
+            }
+        </dd>
+        <dt class="col-sm-2">
+            Question
+        </dt>
+        <dd class="col-sm-10">
+            @Html.Raw(Model.FkQue.QueTexte)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="RepId" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index" asp-route-id="@Model.FkQueId">Back to List</a>
+    </form>
+</div>

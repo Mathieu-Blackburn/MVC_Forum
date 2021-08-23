@@ -1,0 +1,63 @@
+﻿@model IEnumerable<TP2_Mathieu_Blackburn_Rogers.Controllers.UserDisp>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Username
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Nombre de Questions
+            </th>
+            <th>
+                Nombre de Réponses
+            </th>
+            <th>
+                Dernière activité
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Username)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NbrQuestions)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NbrReponses)
+            </td>
+            <td>
+                @if (item.LastActivity is not null)
+                {
+                    <p>@Html.DisplayFor(modelItem => item.LastActivity)</p>
+                }
+                else
+                {
+                    <p>Jamais</p>
+                }
+            </td>
+            <td>
+                @*<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

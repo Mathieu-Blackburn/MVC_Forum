@@ -1,0 +1,99 @@
+﻿@model IEnumerable<TP2_Mathieu_Blackburn_Rogers.Controllers.QueDisp>
+@using System.Security.Claims;
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>@ViewData["CatName"]</h1>
+
+@if (User.Identity.IsAuthenticated)
+{
+    <p>
+        <a asp-action="Create" asp-route-id="@ViewData["CatId"]">Create New</a>
+    </p>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Utilisateur</th>
+            <th>
+                Question
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                Réponses/Vues
+            </th>
+            <th>
+                Dernière Réponse
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            if (item.Active == true)
+            {
+                <tr>
+                    <td>
+                        <div>
+                            @Html.DisplayFor(modelitem => item.Username)
+                        </div>
+                    </td>
+                    <td style="max-width:20em;">
+                        @*@Html.DisplayFor(modelItem => item.CatNom)*@
+                        <div>
+                            <a asp-controller="Reponses" asp-action="Index" asp-route-id="@item.ID">@Html.DisplayFor(modelItem => item.Titre)</a>
+                        </div>
+                        <div>
+                            @Html.Raw(item.Texte)
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            @Html.DisplayFor(modelItem => item.Date)
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            @Html.DisplayFor(modelItem => item.Views) Vues
+                        </div>
+                        <div>
+                            @Html.DisplayFor(modelItem => item.Reps) Réponses
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            @if (item.Reps != 0)
+                            {
+                                <div>
+                                    Par @Html.DisplayFor(modelItem => item.LastUser)
+                                </div>
+                                <div>
+                                    Le @Html.DisplayFor(modelItem => item.LastAnswerDate)
+                                </div>
+                            }
+                        </div>
+                        
+                    </td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                        @if (User.FindFirstValue(ClaimTypes.NameIdentifier) == item.User)
+                        {
+                            <a asp-action="Edit" asp-route-id="@item.ID">Edit |</a>
+                            <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                        }
+
+                        @*<a asp-controller="Reponses" asp-action="Index" asp-route-id="@item.ID">Réponses</a>*@
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+<div>
+    <a asp-action="Index" asp-controller="Categories">Back to List</a>
+</div>

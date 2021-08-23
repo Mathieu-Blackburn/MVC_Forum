@@ -1,0 +1,37 @@
+﻿@model TP2_Mathieu_Blackburn_Rogers.Models.Reponse
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Reponse</h4>
+<hr />
+<div class="row">
+    <div class="col-md-8">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="FkQueId" value="@ViewData["FkQueId"]" />
+            <input type="hidden" asp-for="FkUser" value="@ViewData["UserId"]" />
+            <input type="hidden" asp-for="RepDate" value="@DateTime.Now" />
+            <input type="hidden" asp-for="RepActive" value="True" />
+            <div class="form-group">
+                <label asp-for="RepTexte" class="control-label">Texte</label>
+                <textarea asp-for="RepTexte" class="form-control" ></textarea>
+                <span asp-validation-for="RepTexte" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" asp-route-id="@ViewData["FkQueId"]">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

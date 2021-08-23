@@ -1,0 +1,79 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div id="hello">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 centered">
+                <h1>Conspirations 2000</h1>
+                <h2>Hot Spot Trendy Conspirationiste</h2>
+            </div>
+            <!-- /col-lg-8 -->
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /hello -->
+
+<div id="green">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5 centered">
+                <img src="img/iphone.png" alt="">
+            </div>
+
+            <div class="col-lg-7 centered">
+                <h3>QUI SOMMES-NOUS?</h3>
+                <p>
+                    Le site référence en toutes matières de conspirations diverses.
+                    Des magouilles gouvernementales aux secrets extra-terrestres, nous acceuillons toutes vos craintes et vos trouvailles!
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="sepDiv"></div>
+
+<div class="container">
+    <div class="row centered mt grid">
+        <h3>NOS SUJETS CHAUDS</h3>
+        <div class="sepDiv"></div>
+        <div class="mt"></div>
+        <div class="col-lg-4">
+            <a asp-area="" asp-controller="Questions" asp-action="Index" asp-route-id="1">
+                <img src="img/flag.jpg" alt="gouvernement">
+                <p class="center-text">Gouvernements</p>
+            </a>
+        </div>
+        <div class="col-lg-4">
+            <a asp-area="" asp-controller="Questions" asp-action="Index" asp-route-id="2">
+                <img src="img/aliens.jpg" alt="aliens">
+                <p class="center-text">Aliens</p>
+            </a>
+        </div>
+        <div class="col-lg-4">
+            <a asp-area="" asp-controller="Questions" asp-action="Index" asp-route-id="3">
+                <img src="img/vaccins.jpg" alt="vaccins">
+                <p class="center-text">Vaccins</p>
+            </a>
+        </div>
+    </div>
+
+    <div class="row mt centered">
+        <div class="col-lg-7 col-lg-offset-1 mt">
+            <p class="lead">
+                Beaucoup d'autres sujets sont à venir! Cliquez sur le bouton à droite
+                pour voir toutes nos catégories actuelles sur le forum
+            </p>
+        </div>
+
+        <div class="col-lg-3 mt">
+            <p><button type="button" class="btn btn-theme btn-lg" onclick="window.location.href ='@Url.Action("Index", "Categories")';">Toutes les catégories</button></p>
+        </div>
+    </div>
+
+    <div style="height:25px;"></div>
+</div>

@@ -1,0 +1,67 @@
+﻿@model IEnumerable<TP2_Mathieu_Blackburn_Rogers.Controllers.catDisp>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Catégories</h1>
+
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Catégories
+            </th>
+            <th>Récentes</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            if (item.CatActive == true)
+            {
+                <tr>
+                    <td style="max-width:20em;">
+                        @*@Html.DisplayFor(modelItem => item.CatNom)*@
+                        <div>
+                            <a asp-controller="Questions" asp-action="Index" asp-route-id="@item.CatId">@Html.DisplayFor(modelItem => item.CatNom)</a>
+                        </div>
+                        <div>
+                            @Html.Raw(item.CatDescription)
+                        </div>
+                    </td>
+                    <td>
+                        @foreach(var question in item.Last3Question)
+                    {
+                        <div style="border-style: solid; border-color: rgb(222, 222, 222); border-radius: 3px; margin-bottom: 2px; padding: 0.5em;">
+                            <p>@question.QueTitre</p> 
+                            <a asp-controller="Reponses" asp-action="Index" asp-route-id="@question.QueId">Commentaires</a>
+                        </div>
+                    }
+                    </td>
+                    @*<td>
+                        <a asp-controller="Questions" asp-action="Index" asp-route-id="@item.CatId">Questions</a>
+                    </td>*@
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.CatId">Details</a> |
+                    @if(User.IsInRole("Admin"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.CatId">Edit |</a> 
+                        <a asp-action="Delete" asp-route-id="@item.CatId">Delete</a>
+                    }
+
+
+                </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
